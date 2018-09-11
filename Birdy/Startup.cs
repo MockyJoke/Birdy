@@ -1,7 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Birdy.Models;
+using Birdy.Services;
+using Birdy.Services.Caching;
+using Birdy.Services.Caching.Simple;
+using Birdy.Services.PhotoSource;
+using Birdy.Services.PhotoSource.File;
+using Birdy.Util;
+using Birdy.Util.Extraction;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,9 +36,29 @@ namespace Birdy
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddSpaStaticFiles(configuration=>{
+            services.AddSpaStaticFiles(configuration =>
+            {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            IPhotoSource photoSource = new FilePhotoSource(new List<string>{
+                @"\\devdesktop\DSLRPhotos",
+                @"\\devdesktop\DSLR2"
+                });
+
+            ICachingService<IPhoto, byte[]> cachingService = new SimpleInMemCachingService<IPhoto, byte[]>();
+            services.AddSingleton<IPhotoService>(new CachedPhotoService(
+                new List<IPhotoSource> { photoSource },
+                cachingService
+                ));
+
+            AlbumCollectionExtractor albumCollectionExtractor = new AlbumCollectionExtractor();
+            AlbumExtractor albumExtractor = new AlbumExtractor(albumCollectionExtractor);
+            PhotoExtractor photoExtractor = new PhotoExtractor(albumExtractor);
+            HashGenerator hashGenerator = new HashGenerator();
+            services.AddSingleton(albumCollectionExtractor);
+            services.AddSingleton(albumExtractor);
+            services.AddSingleton(photoExtractor);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,9 +80,11 @@ namespace Birdy
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
-            app.UseSpa(spa=>{
+            app.UseSpa(spa =>
+            {
                 spa.Options.SourcePath = "ClientApp";
-                if(env.IsDevelopment()){
+                if (env.IsDevelopment())
+                {
                     spa.UseAngularCliServer("start");
                 }
             });
