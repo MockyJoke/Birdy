@@ -9,10 +9,10 @@ namespace Birdy.Services.ImageManipulation
 {
     public class PortableImageManipulationService : IImageManipulationService
     {
-        public Task<byte[]> GenerateHdImageAsync(Stream imageStream)
+        public Task<byte[]> GenerateHdImageAsync(byte[] imageData)
         {
             MemoryStream outputStream = new MemoryStream();
-            using (Image<Rgba32> image = Image.Load(imageStream))
+            using (Image<Rgba32> image = Image.Load(imageData))
             {
                 Tuple<int, int> outputResolution = calculateResolution(new Tuple<int, int>(image.Width, image.Height), 1280);
                 image.Mutate(ctx => ctx.Resize(outputResolution.Item1, outputResolution.Item2));
@@ -22,10 +22,10 @@ namespace Birdy.Services.ImageManipulation
             return Task.FromResult(outputStream.ToArray());
         }
 
-        public Task<byte[]> GenerateThumbnailImageAsync(Stream imageStream)
+        public Task<byte[]> GenerateThumbnailImageAsync(byte[] imageData)
         {
             MemoryStream outputStream = new MemoryStream();
-            using (Image<Rgba32> image = Image.Load(imageStream))
+            using (Image<Rgba32> image = Image.Load(imageData))
             {
                 Tuple<int, int> outputResolution = calculateResolution(new Tuple<int, int>(image.Width, image.Height), 320);
                 image.Mutate(ctx => ctx.Resize(outputResolution.Item1, outputResolution.Item2));

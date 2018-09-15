@@ -88,7 +88,7 @@ namespace Birdy.Services
             else
             {
                 byte[] fullImageData = await GetCacheableFullImageAsync(photo, photoSource);
-                imageData = await imageManipulationService.GenerateHdImageAsync(new MemoryStream(fullImageData));
+                imageData = await imageManipulationService.GenerateHdImageAsync(fullImageData);
                 await cachingService.SetAsync(cacheKey, imageData);
             }
             return imageData;
@@ -105,7 +105,7 @@ namespace Birdy.Services
             else
             {
                 byte[] fullImageData = await GetCacheableFullImageAsync(photo, photoSource);
-                imageData = await imageManipulationService.GenerateThumbnailImageAsync(new MemoryStream(fullImageData));
+                imageData = await imageManipulationService.GenerateThumbnailImageAsync(fullImageData);
                 await cachingService.SetAsync(cacheKey, imageData);
             }
             return imageData;
