@@ -92,19 +92,23 @@ namespace Birdy.Controllers
             try
             {
                 photo = photoExtractor.Single(imageService.AlbumCollections, albumCollectionId, albumId, photoId);
+                Stream imageStream;
                 if (mode == "full")
                 {
-
+                    imageStream = await imageService.GetImageStreamAsync(photo, ImageFetchMode.FULL);
                 }
                 else if (mode == "mini")
                 {
-
+                    imageStream = await imageService.GetImageStreamAsync(photo, ImageFetchMode.MINI);
                 }
                 else if (mode == "meta")
                 {
                     return new JsonResult(new { photo.Id, photo.Name });
                 }
-                Stream imageStream = await imageService.GetImageStreamAsync<string>(photo, mode);
+                else
+                {
+                    imageStream = await imageService.GetImageStreamAsync(photo, ImageFetchMode.HD);
+                }
                 return File(imageStream, IMAGE_CONTENT_TYPE);
             }
             catch

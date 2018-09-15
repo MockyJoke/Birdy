@@ -8,6 +8,8 @@ namespace Birdy.Services
     public interface IPhotoService
     {
         IEnumerable<IAlbumCollection> AlbumCollections { get; }
-        Task<Stream> GetImageStreamAsync<T>(IPhoto photo, T param);
+        Task<Stream> GetImageStreamAsync(IPhoto photo, ImageFetchMode mode);
     }
+
+    public enum ImageFetchMode { FULL, HD, MINI }
 }

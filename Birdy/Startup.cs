@@ -7,6 +7,7 @@ using Birdy.Models;
 using Birdy.Services;
 using Birdy.Services.Caching;
 using Birdy.Services.Caching.Simple;
+using Birdy.Services.ImageManipulation;
 using Birdy.Services.PhotoSource;
 using Birdy.Services.PhotoSource.File;
 using Birdy.Util;
@@ -46,10 +47,12 @@ namespace Birdy
                 @"\\devdesktop\DSLR2"
                 });
 
-            ICachingService<IPhoto, byte[]> cachingService = new SimpleInMemCachingService<IPhoto, byte[]>();
+            ICachingService<string, byte[]> cachingService = new SimpleInMemCachingService<string, byte[]>();
+            IImageManipulationService imageManipulationService = new PortableImageManipulationService();
             services.AddSingleton<IPhotoService>(new CachedPhotoService(
                 new List<IPhotoSource> { photoSource },
-                cachingService
+                cachingService,
+                imageManipulationService
                 ));
 
             AlbumCollectionExtractor albumCollectionExtractor = new AlbumCollectionExtractor();
