@@ -1,0 +1,6 @@
+<p>
+  main-content works!
+</p>
+<app-album-sets-viewer *ngIf="selectedNode == null"></app-album-sets-viewer>
+<app-albums-viewer *ngIf="selectedNode !=null && selectedNode.getTypeName() === 'AlbumSet'"></app-albums-viewer>
+<app-photos-viewer *ngIf="selectedNode !=null && selectedNode.getTypeName() === 'Album'"></app-photos-viewer>
