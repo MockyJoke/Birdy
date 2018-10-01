@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { PhotoService } from '../../photo.service';
+import { AlbumSet } from '../../models/album-set';
+
 
 @Component({
   selector: 'app-album-sets-viewer',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AlbumSetsViewerComponent implements OnInit {
 
-  constructor() { }
+  albumSets: AlbumSet[];
+  @Output() selectionChanged = new EventEmitter<AlbumSet>();
+  constructor(private photoService: PhotoService) { }
 
   ngOnInit() {
+    this.photoService.getAlbumSets().subscribe(albumSets => { this.albumSets = albumSets; });
+  }
+
+  onClicked(selection: AlbumSet) {
+    this.selectionChanged.emit(selection);
   }
 
 }

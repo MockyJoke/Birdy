@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NamedType } from '../models/named-type';
 import { AlbumSet } from '../models/album-set';
 import { Album } from '../models/album';
@@ -10,14 +10,16 @@ import { Album } from '../models/album';
 })
 export class MainContentComponent implements OnInit {
 
-  selectedNode : NamedType;
+  selectedNode: NamedType;
 
-  constructor() { 
+  constructor() {
   }
 
   ngOnInit() {
-    this.selectedNode = new Album();
-    //console.log(this.selectedNode.getTypeName());
+  }
+  
+  onSelectionChanged(selection: NamedType) {
+    this.selectedNode = selection;
   }
 
 }

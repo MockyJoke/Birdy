@@ -1,3 +1,4 @@
-<p>
-  photos-viewer works!
-</p>
+<p>photos-viewer</p>
+<div *ngFor="let photo of photos">
+  <app-photo [photo] = "photo" (clicked) = "onClicked($event)"></app-photo>
+</div>

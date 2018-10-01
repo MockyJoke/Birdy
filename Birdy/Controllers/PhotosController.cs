@@ -58,9 +58,10 @@ namespace Birdy.Controllers
             }
             return new JsonResult(new
             {
+                albumCollectionId = albumCollectionId,
                 id = albumCollection.Id,
                 name = albumCollection.Name,
-                albumsIds = albumCollection.Albums.Select(a => a.Id)
+                albums = albumCollection.Albums.Select(a => new { a.Id, a.Name })
             });
         }
 
@@ -79,9 +80,11 @@ namespace Birdy.Controllers
 
             return new JsonResult(new
             {
+                albumCollectionId = albumCollectionId,
+                albumId = albumId,
                 id = album.Id,
                 name = album.Name,
-                photoIds = album.Photos.Select(p => p.Id)
+                photos = album.Photos.Select(p => new { p.Id, p.Name })
             });
         }
 
