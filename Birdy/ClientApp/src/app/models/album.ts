@@ -5,6 +5,7 @@ export class Album implements NamedType {
     albumSetId: string;
     id: string;
     name: string;
+    private photos: Photo[];
 
     constructor(albumSetId: string, id: string, name: string) {
         this.albumSetId = albumSetId;
@@ -12,7 +13,15 @@ export class Album implements NamedType {
         this.name = name;
     }
 
+    getPhotos(): Photo[] {
+        return this.photos;
+    }
+
     getTypeName(): string {
         return "Album";
+    }
+
+    setPhotos(photos: Photo[]){
+        this.photos = photos;
     }
 }

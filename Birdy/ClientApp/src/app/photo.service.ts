@@ -22,9 +22,30 @@ export class PhotoService {
     }));
   }
 
+  getAlbumSet(albumSetId: string): Observable<AlbumSet> {
+    return this.http.get<any>(`${this.endpointUrl}api/photos/${albumSetId}`).pipe(map(res => {
+      var albumSet = new AlbumSet(res.id, res.name);
+      albumSet.setAlbums(res['albums'].map(album => new Album(res['albumCollectionId'], album.id, album.name)));
+      return albumSet;
+    }));
+  }
+
   getAlbums(albumSetId: string): Observable<Album[]> {
     return this.http.get(`${this.endpointUrl}api/photos/${albumSetId}`).pipe(map(res => {
       return res['albums'].map(album => new Album(res['albumCollectionId'], album.id, album.name));
+    }));
+  }
+
+  getAlbum(albumSetId: string, albumId: string): Observable<Album> {
+    return this.http.get<any>(`${this.endpointUrl}api/photos/${albumSetId}/${albumId}`).pipe(map(res => {
+      var album = new Album(res.albumCollectionId, res.id, res.name);
+      album.setPhotos(res['photos'].map(photo => new Photo(
+        res['albumCollectionId'],
+        res['albumId'],
+        photo.id,
+        photo.name
+      )));
+      return album;
     }));
   }
 
@@ -38,6 +59,8 @@ export class PhotoService {
       ));
     }));
   }
+
+
 
   generateThumbnailPhotoUrl(albumSetId: string, albumId: string, photoId: string): string {
     return `${this.endpointUrl}api/photos/${albumSetId}/${albumId}/${photoId}/mini`;

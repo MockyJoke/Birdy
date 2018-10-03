@@ -11,6 +11,7 @@ import { AlbumsViewerComponent } from './main-content/albums-viewer/albums-viewe
 import { AlbumSetComponent } from './main-content/album-sets-viewer/album-set/album-set.component';
 import { AlbumComponent } from './main-content/albums-viewer/album/album.component';
 import { PhotoComponent } from './main-content/photos-viewer/photo/photo.component';
+import { AppRoutingModule } from './/app-routing.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { PhotoComponent } from './main-content/photos-viewer/photo/photo.compone
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
