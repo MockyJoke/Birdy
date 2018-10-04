@@ -1,3 +1,5 @@
-<div *ngFor="let albumSet of albumSets">
-  <app-album-set [albumSet] = albumSet (clicked) = "onClicked($event)"></app-album-set>
+<div *ngIf ="root">
+  <div *ngFor="let albumSet of root.albumSets">
+    <app-album-set [albumSet] = albumSet (clicked) = "onClicked($event)"></app-album-set>
+  </div>
 </div>
