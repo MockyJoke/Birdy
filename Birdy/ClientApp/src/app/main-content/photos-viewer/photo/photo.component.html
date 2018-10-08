@@ -1,4 +1,3 @@
 <p>
-  <img src='{{getThumbnailPhotoUrl()}}'/>
-  <!-- <button (click)="onClickMe()"> {{photo.name}}</button> -->
+  <img (click)="onClickMe()" src="{{ photoService.generateThumbnailPhotoUrl(photo.albumSetId, photo.albumId, photo.id)}}"/>
 </p>

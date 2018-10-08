@@ -10,7 +10,7 @@ export class Photo implements NamedType {
 
     constructor(albumSetId: string, albumSetName: string, albumId: string, albumName: string, id: string, name: string) {
         this.albumSetId = albumSetId;
-        this.albumName = albumName;
+        this.albumSetName = albumSetName;
         this.albumId = albumId;
         this.albumName = albumName;
         this.id = id;

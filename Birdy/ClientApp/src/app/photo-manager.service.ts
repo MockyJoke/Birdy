@@ -63,7 +63,7 @@ export class PhotoManagerService {
     var photoId = routeSnapshot.paramMap.get('photoId');
     var result: Observable<NamedType>;
     if (albumSetId != null && albumId != null && photoId != null) {
-      //do something
+      result = this.photoService.getPhoto(albumSetId, albumId, photoId);
     }
     else if (albumSetId != null && albumId != null) {
       result = this.photoService.getAlbum(albumSetId, albumId);

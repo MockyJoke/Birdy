@@ -27,7 +27,7 @@ namespace Birdy.Services.ImageManipulation
             MemoryStream outputStream = new MemoryStream();
             using (Image<Rgba32> image = Image.Load(imageData))
             {
-                Tuple<int, int> outputResolution = calculateResolution(new Tuple<int, int>(image.Width, image.Height), 320);
+                Tuple<int, int> outputResolution = calculateResolution(new Tuple<int, int>(image.Width, image.Height), 160);
                 image.Mutate(ctx => ctx.Resize(outputResolution.Item1, outputResolution.Item2));
                 image.SaveAsJpeg(outputStream);
             }

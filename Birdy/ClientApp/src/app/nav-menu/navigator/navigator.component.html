@@ -2,30 +2,30 @@
 
   <ol *ngIf="selectedNode.getTypeName()==='Root'" class="breadcrumb">
     <li class="breadcrumb-item active" aria-current="page">
-      <span (click)="navigateTo(null,null,null)" class="badge badge-light">Home</span>
+      <span (click)="navigateTo(null,null,null)" class="badge badge-dark">Home</span>
     </li>
   </ol>
 
   <ol *ngIf="selectedNode.getTypeName()==='AlbumSet'" class="breadcrumb">
     <li class="breadcrumb-item active" aria-current="page">
-      <span (click)="navigateTo(null,null,null)" class="badge badge-light">Home</span>
+      <span (click)="navigateTo(null,null,null)" class="badge badge-dark">Home</span>
     </li>
     <li class="breadcrumb-item active" aria-current="page">
-      <span class="badge badge-light">{{selectedNode.name}}</span>
+      <span class="badge badge-dark">{{selectedNode.name}}</span>
     </li>
   </ol>
 
   <ol *ngIf="selectedNode.getTypeName()==='Album'" class="breadcrumb">
     <li class="breadcrumb-item active" aria-current="page">
-      <span (click)="navigateTo(null,null,null)" class="badge badge-light">Home</span>
+      <span (click)="navigateTo(null,null,null)" class="badge badge-dark">Home</span>
     </li>
     <li class="breadcrumb-item active" aria-current="page">
-      <span (click)="navigateTo(selectedNode.albumSetId,null,null)" class="badge badge-light">
+      <span (click)="navigateTo(selectedNode.albumSetId,null,null)" class="badge badge-dark">
         {{selectedNode.albumSetName}}
       </span>
     </li>
     <li class="breadcrumb-item active" aria-current="page">
-      <span class="badge badge-light">
+      <span class="badge badge-dark">
         {{selectedNode.name}}
       </span>
     </li>
@@ -33,20 +33,20 @@
 
   <ol *ngIf="selectedNode.getTypeName()==='Photo'" class="breadcrumb">
     <li class="breadcrumb-item active" aria-current="page">
-      <span (click)="navigateTo(null,null,null)" class="badge badge-light">Home</span>
+      <span (click)="navigateTo(null,null,null)" class="badge badge-dark">Home</span>
     </li>
     <li class="breadcrumb-item active" aria-current="page">
-      <span (click)="navigateTo(selectedNode.albumSetId,null,null)" class="badge badge-light">
+      <span (click)="navigateTo(selectedNode.albumSetId,null,null)" class="badge badge-dark">
         {{selectedNode.albumSetName}}
       </span>
     </li>
     <li class="breadcrumb-item active" aria-current="page">
-      <span (click)="navigateTo(selectedNode.albumSetId,selectedNode.albumId,null)" class="badge badge-light">
+      <span (click)="navigateTo(selectedNode.albumSetId,selectedNode.albumId,null)" class="badge badge-dark">
         {{selectedNode.albumName}}
       </span>
     </li>
     <li class="breadcrumb-item active" aria-current="page">
-      <span class="badge badge-light">{{selectedNode.name}}</span>
+      <span class="badge badge-dark">{{selectedNode.name}}</span>
     </li>
   </ol>
 </nav>

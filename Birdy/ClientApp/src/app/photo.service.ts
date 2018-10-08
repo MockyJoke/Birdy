@@ -49,7 +49,17 @@ export class PhotoService {
     }));
   }
 
+  getPhoto(albumSetId: string, albumId: string, photoId: string): Observable<Photo> {
+    return this.http.get<any>(`${this.endpointUrl}api/photos/${albumSetId}/${albumId}/${photoId}`).pipe(map(photoResult => {
+      var photo = new Photo(photoResult.albumCollectionId, photoResult.albumCollectionName, photoResult.albumId, photoResult.albumName, photoResult.id, photoResult.name);
+      return photo;
+    }));
+  }
+
   generateThumbnailPhotoUrl(albumSetId: string, albumId: string, photoId: string): string {
     return `${this.endpointUrl}api/photos/${albumSetId}/${albumId}/${photoId}/mini`;
+  }
+  generateHdPhotoUrl(albumSetId: string, albumId: string, photoId: string): string {
+    return `${this.endpointUrl}api/photos/${albumSetId}/${albumId}/${photoId}/hd`;
   }
 }

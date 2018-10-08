@@ -1,0 +1,5 @@
+<div *ngIf="album" class="photo-list-div">
+  <div *ngFor="let photo of album.photos" class="photo-thumbnail">
+    <img src="{{ photoService.generateThumbnailPhotoUrl(photo.albumSetId, photo.albumId, photo.id)}}" />
+  </div>
+</div>

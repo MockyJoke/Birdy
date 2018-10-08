@@ -1,0 +1,5 @@
+<div class='stage-div'>
+  <div>
+    <img *ngIf='photo' class='hd-img' src='{{ photoService.generateHdPhotoUrl(photo.albumSetId, photo.albumId, photo.id)}}' />
+  </div>
+</div>

@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { PhotoService } from '../../photo.service';
 import { Album } from '../../models/album';
 import { ActivatedRoute } from '@angular/router';
 import { PhotoManagerService } from '../../photo-manager.service';
+import { Photo } from '../../models/photo';
 
 @Component({
   selector: 'app-photos-viewer',
@@ -12,6 +13,7 @@ import { PhotoManagerService } from '../../photo-manager.service';
 export class PhotosViewerComponent implements OnInit {
 
   @Input() album: Album;
+  @Output() selectionChanged = new EventEmitter<Photo>();
   constructor(private photoService: PhotoService, private photoManagerService: PhotoManagerService, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -21,5 +23,9 @@ export class PhotosViewerComponent implements OnInit {
         this.photoManagerService.navigateByNode(selection);
       }
     });
+  }
+  onClicked(selection: Photo) {
+    this.selectionChanged.emit(selection);
+    this.photoManagerService.navigateByNode(selection);
   }
 }

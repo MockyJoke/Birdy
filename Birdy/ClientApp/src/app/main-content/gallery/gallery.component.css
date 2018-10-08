@@ -1,0 +1,20 @@
+.main-div {
+    flex-direction: column;
+    display: flex;
+    justify-content: space-between;
+    /* background-color: red; */
+    height: calc(100vh - 15vh);
+}
+.title-div{
+}
+  
+.stage-div {
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.photo-list-div{
+    height: auto;
+    width:100%;
+    align-self: flex-end;
+}

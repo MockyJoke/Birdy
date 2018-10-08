@@ -13,6 +13,9 @@ import { AlbumComponent } from './main-content/albums-viewer/album/album.compone
 import { PhotoComponent } from './main-content/photos-viewer/photo/photo.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { NavigatorComponent } from './nav-menu/navigator/navigator.component';
+import { GalleryComponent } from './main-content/gallery/gallery.component';
+import { PhotoListComponent } from './main-content/gallery/photo-list/photo-list.component';
+import { MainPhotoViewerComponent } from './main-content/gallery/main-photo-viewer/main-photo-viewer.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,10 @@ import { NavigatorComponent } from './nav-menu/navigator/navigator.component';
     AlbumSetComponent,
     AlbumComponent,
     PhotoComponent,
-    NavigatorComponent
+    NavigatorComponent,
+    GalleryComponent,
+    PhotoListComponent,
+    MainPhotoViewerComponent
   ],
   imports: [
     BrowserModule,

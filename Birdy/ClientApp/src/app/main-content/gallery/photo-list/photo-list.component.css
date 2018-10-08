@@ -1,0 +1,22 @@
+.photo-list-div {
+    /* scrolling */
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+
+    /* separation */
+    margin: 1rem;
+    
+}
+
+.photo-list-div .photo-thumbnail {
+    display: inline-block;
+    
+    /* separation */
+    margin: 0.5rem;
+    height: 5rem;
+}
+.photo-list-div .photo-thumbnail img{
+    height: 100%;
+    width: auto;
+}

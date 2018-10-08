@@ -109,7 +109,11 @@ namespace Birdy.Controllers
                 {
                     imageStream = await imageService.GetImageStreamAsync(photo, ImageFetchMode.MINI);
                 }
-                else if (mode == "meta")
+                else if (mode == "hd")
+                {
+                    imageStream = await imageService.GetImageStreamAsync(photo, ImageFetchMode.HD);
+                }
+                else
                 {
                     return new JsonResult(new
                     {
@@ -120,10 +124,6 @@ namespace Birdy.Controllers
                         id = photo.Id,
                         name = photo.Name
                     });
-                }
-                else
-                {
-                    imageStream = await imageService.GetImageStreamAsync(photo, ImageFetchMode.HD);
                 }
                 return File(imageStream, IMAGE_CONTENT_TYPE);
             }
