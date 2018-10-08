@@ -1,6 +1,6 @@
 <div class='main-div' *ngIf="photo">
   <div class='title-div'>
-    {{photo.name}}
+    <p>{{photo.name}}</p>
   </div>
   <div class='stage-div'>
     <app-main-photo-viewer [photo]='photo'></app-main-photo-viewer>
@@ -8,7 +8,6 @@
   <div class='photo-list-div'>
     <div>
       <app-photo-list [album]='album' (clicked)="onClicked($event)"></app-photo-list>
-
     </div>
   </div>
 </div>
