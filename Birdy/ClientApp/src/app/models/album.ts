@@ -3,12 +3,14 @@ import { NamedType } from './named-type';
 
 export class Album implements NamedType {
     albumSetId: string;
+    albumSetName: string;
     id: string;
     name: string;
     private photos: Photo[];
 
-    constructor(albumSetId: string, id: string, name: string) {
+    constructor(albumSetId: string, albumSetName: string, id: string, name: string) {
         this.albumSetId = albumSetId;
+        this.albumSetName = albumSetName;
         this.id = id;
         this.name = name;
     }
@@ -21,7 +23,7 @@ export class Album implements NamedType {
         return "Album";
     }
 
-    setPhotos(photos: Photo[]){
+    setPhotos(photos: Photo[]) {
         this.photos = photos;
     }
 }

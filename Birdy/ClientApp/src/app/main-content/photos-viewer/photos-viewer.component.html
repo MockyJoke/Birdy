@@ -1,4 +1,3 @@
-<p>photos-viewer</p>
 <div *ngIf="album">
   <div *ngFor="let photo of album.photos">
     <app-photo [photo] = "photo" (clicked) = "onClicked($event)"></app-photo>

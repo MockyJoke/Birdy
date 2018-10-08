@@ -12,6 +12,7 @@ import { AlbumSetComponent } from './main-content/album-sets-viewer/album-set/al
 import { AlbumComponent } from './main-content/albums-viewer/album/album.component';
 import { PhotoComponent } from './main-content/photos-viewer/photo/photo.component';
 import { AppRoutingModule } from './/app-routing.module';
+import { NavigatorComponent } from './nav-menu/navigator/navigator.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { AppRoutingModule } from './/app-routing.module';
     PhotosViewerComponent,
     AlbumSetComponent,
     AlbumComponent,
-    PhotoComponent
+    PhotoComponent,
+    NavigatorComponent
   ],
   imports: [
     BrowserModule,

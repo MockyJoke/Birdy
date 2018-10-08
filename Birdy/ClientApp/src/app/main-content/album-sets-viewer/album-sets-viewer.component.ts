@@ -20,7 +20,7 @@ export class AlbumSetsViewerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.photoManagerService.getCurrentSelection(this.route.snapshot).subscribe(selection => {
+    this.photoManagerService.navigateByRoute(this.route.snapshot).subscribe(selection => {
       if (selection.getTypeName() === "Root") {
         this.root = selection as Root;
       }
@@ -29,7 +29,6 @@ export class AlbumSetsViewerComponent implements OnInit {
 
   onClicked(selection: AlbumSet) {
     this.selectionChanged.emit(selection);
-    this.photoManagerService.selectedNewNode(selection);
+    this.photoManagerService.navigateByNode(selection);
   }
-
 }

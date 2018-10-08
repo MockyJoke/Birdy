@@ -38,8 +38,8 @@ namespace Birdy.Controllers
         {
             var albumCollections = imageService.AlbumCollections.Select(ac => new
             {
-                ac.Id,
-                ac.Name
+                id = ac.Id,
+                name = ac.Name
             });
             return new JsonResult(albumCollections);
         }
@@ -60,7 +60,7 @@ namespace Birdy.Controllers
             {
                 id = albumCollection.Id,
                 name = albumCollection.Name,
-                albums = albumCollection.Albums.Select(a => new { a.Id, a.Name })
+                albums = albumCollection.Albums.Select(a => new { id = a.Id, name = a.Name })
             });
         }
 
@@ -68,8 +68,10 @@ namespace Birdy.Controllers
         public ActionResult Get(string albumCollectionId, string albumId)
         {
             IAlbum album;
+            IAlbumCollection albumCollection;
             try
             {
+                albumCollection = albumCollectionExtractor.Single(imageService.AlbumCollections, albumCollectionId);
                 album = albumExtractor.Single(imageService.AlbumCollections, albumCollectionId, albumId);
             }
             catch
@@ -79,19 +81,24 @@ namespace Birdy.Controllers
 
             return new JsonResult(new
             {
-                albumCollectionId = albumCollectionId,
+                albumCollectionId = albumCollection.Id,
+                albumCollectionName = albumCollection.Name,
                 id = album.Id,
                 name = album.Name,
-                photos = album.Photos.Select(p => new { p.Id, p.Name })
+                photos = album.Photos.Select(p => new { id = p.Id, name = p.Name })
             });
         }
 
         [HttpGet("{albumCollectionId}/{AlbumId}/{photoId}/{mode?}")]
         public async Task<ActionResult> Get(string albumCollectionId, string albumId, string photoId, string mode)
         {
+            IAlbum album;
+            IAlbumCollection albumCollection;
             IPhoto photo;
             try
             {
+                albumCollection = albumCollectionExtractor.Single(imageService.AlbumCollections, albumCollectionId);
+                album = albumExtractor.Single(imageService.AlbumCollections, albumCollectionId, albumId);
                 photo = photoExtractor.Single(imageService.AlbumCollections, albumCollectionId, albumId, photoId);
                 Stream imageStream;
                 if (mode == "full")
@@ -104,7 +111,15 @@ namespace Birdy.Controllers
                 }
                 else if (mode == "meta")
                 {
-                    return new JsonResult(new { photo.Id, photo.Name });
+                    return new JsonResult(new
+                    {
+                        albumCollectionId = albumCollection.Id,
+                        albumCollectionName = albumCollection.Name,
+                        albumId = album.Id,
+                        albumName = album.Name,
+                        id = photo.Id,
+                        name = photo.Name
+                    });
                 }
                 else
                 {

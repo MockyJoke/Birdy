@@ -16,7 +16,7 @@ export class AlbumsViewerComponent implements OnInit {
   constructor(private photoManagerService: PhotoManagerService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.photoManagerService.getCurrentSelection(this.route.snapshot).subscribe(selection => {
+    this.photoManagerService.navigateByRoute(this.route.snapshot).subscribe(selection => {
       if (selection.getTypeName() === "AlbumSet") {
         this.albumSet = selection as AlbumSet;
       }
@@ -25,6 +25,6 @@ export class AlbumsViewerComponent implements OnInit {
 
   onClicked(selection: Album) {
     this.selectionChanged.emit(selection);
-    this.photoManagerService.selectedNewNode(selection);
+    this.photoManagerService.navigateByNode(selection);
   }
 }

@@ -27,19 +27,21 @@ export class PhotoService {
   }
 
   getAlbumSet(albumSetId: string): Observable<AlbumSet> {
-    return this.http.get<any>(`${this.endpointUrl}api/photos/${albumSetId}`).pipe(map(res => {
-      var albumSet = new AlbumSet(res.id, res.name);
-      albumSet.setAlbums(res['albums'].map(album => new Album(res['id'], album.id, album.name)));
+    return this.http.get<any>(`${this.endpointUrl}api/photos/${albumSetId}`).pipe(map(albumSetResult => {
+      var albumSet = new AlbumSet(albumSetResult.id, albumSetResult.name);
+      albumSet.setAlbums(albumSetResult['albums'].map(album => new Album(albumSetResult.id, albumSetResult.name, album.id, album.name)));
       return albumSet;
     }));
   }
 
   getAlbum(albumSetId: string, albumId: string): Observable<Album> {
-    return this.http.get<any>(`${this.endpointUrl}api/photos/${albumSetId}/${albumId}`).pipe(map(res => {
-      var album = new Album(res.albumCollectionId, res.id, res.name);
-      album.setPhotos(res['photos'].map(photo => new Photo(
-        res['albumCollectionId'],
-        res['id'],
+    return this.http.get<any>(`${this.endpointUrl}api/photos/${albumSetId}/${albumId}`).pipe(map(albumResult => {
+      var album = new Album(albumResult.albumCollectionId, albumResult.albumCollectionName, albumResult.id, albumResult.name);
+      album.setPhotos(albumResult['photos'].map(photo => new Photo(
+        albumResult.albumCollectionId,
+        albumResult.albumCollectionName,
+        albumResult.id,
+        albumResult.name,
         photo.id,
         photo.name
       )));
