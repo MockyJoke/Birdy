@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Album } from '../../../models/album';
 import { PhotoManagerService } from '../../../photo-manager.service';
 import { PhotoService } from '../../../photo.service';
+import { Photo } from '../../../models/photo';
 
 @Component({
   selector: 'app-photo-list',
@@ -11,9 +12,14 @@ import { PhotoService } from '../../../photo.service';
 export class PhotoListComponent implements OnInit {
 
   @Input() album: Album;
+  @Output() clicked = new EventEmitter<Photo>();
   constructor(private photoService: PhotoService, private photoManagerService: PhotoManagerService) { }
 
   ngOnInit() {
+  }
+
+  onClickMe(photoId: string) {
+    this.clicked.emit(this.album.getPhotos().filter(p => p.id === photoId)[0]);
   }
 
 }

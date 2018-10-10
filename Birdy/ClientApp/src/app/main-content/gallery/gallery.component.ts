@@ -32,4 +32,8 @@ export class GalleryComponent implements OnInit {
     return this.photoService.generateHdPhotoUrl(this.photo.albumSetId, this.photo.albumId, this.photo.id);
   }
 
+  onClicked(selection: Photo) {
+    // this.selectionChanged.emit(selection);
+    this.photo = selection;
+  }
 }
