@@ -1,5 +1,5 @@
-<div *ngIf="album">
-  <div *ngFor="let photo of album.photos">
+<div *ngIf="album" class="container">
+  <div *ngFor="let photo of album.photos" class="photo-div">
     <app-photo [photo] = "photo" (clicked) = "onClicked($event)"></app-photo>
   </div>
 </div>
