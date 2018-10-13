@@ -1,3 +1,28 @@
-<p>
-  <button (click)="onClickMe()"> {{album.name}}</button>
-</p>
+<div class="album-div" (click)="onClickMe()">
+  <div class="preview-div">
+    <div *ngIf="previewPhotos" class="photos-div container">
+      <div class="row">
+      </div>
+      <div class="row align-items-center">
+        <div class="col col-sm-6" *ngIf="previewPhotos[0]">
+          <app-photo [photo]="previewPhotos[0]"></app-photo>
+        </div>
+        <div class="col col-sm-6" *ngIf="previewPhotos[1]">
+          <app-photo [photo]="previewPhotos[1]"></app-photo>
+        </div>
+      </div>
+
+      <div class="row align-items-end">
+        <div class="col col-sm-6" *ngIf="previewPhotos[2]">
+          <app-photo [photo]="previewPhotos[2]"></app-photo>
+        </div>
+        <div class="col col-sm-6"*ngIf="previewPhotos[3]">
+          <app-photo [photo]="previewPhotos[3]"></app-photo>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="name-div">
+    <p>{{album.name}}</p>
+  </div>
+</div>
