@@ -11,15 +11,17 @@ namespace Birdy.Services.PhotoSource.File
     public class FilePhotoSource : IPhotoSource
     {
         private char pathDelimitor;
-        public List<string> WorkingDirectories { get; private set; }
+        public WorkingDirectory[] WorkingDirectories { get; private set; }
         public string Id { get; private set; }
-        public FilePhotoSource(List<string> workingDirectories) :
-        this(workingDirectories, System.IO.Path.DirectorySeparatorChar)
+
+        public FilePhotoSource(FilePhotoSourceConfig filePhotoSourceConfig) :
+        this(filePhotoSourceConfig.workingDirectories, System.IO.Path.DirectorySeparatorChar)
         {
 
         }
 
-        public FilePhotoSource(List<string> workingDirectories, char pathDelimitor)
+
+        public FilePhotoSource(WorkingDirectory[] workingDirectories, char pathDelimitor)
         {
             this.WorkingDirectories = workingDirectories;
             this.pathDelimitor = pathDelimitor;
@@ -29,7 +31,7 @@ namespace Birdy.Services.PhotoSource.File
         {
             get
             {
-                return WorkingDirectories.Select(wd => new AlbumCollection(wd, Id));
+                return WorkingDirectories.Select(wd => new AlbumCollection(wd.Name, wd.Path, Id));
             }
         }
 

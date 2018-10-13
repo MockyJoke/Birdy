@@ -41,11 +41,11 @@ namespace Birdy
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+            FilePhotoSourceConfig filePhotoSourceConfig = new FilePhotoSourceConfig();
 
-            IPhotoSource photoSource = new FilePhotoSource(new List<string>{
-                @"\\devdesktop\DSLRPhotos",
-                @"\\devdesktop\DSLR2"
-                });
+            Configuration.GetSection("FilePhotoSourceConfig").Bind(filePhotoSourceConfig);
+
+            IPhotoSource photoSource = new FilePhotoSource(filePhotoSourceConfig);
 
             ICachingService<string, byte[]> cachingService = new SimpleInMemCachingService<string, byte[]>();
             IImageManipulationService imageManipulationService = new PortableImageManipulationService();

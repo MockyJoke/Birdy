@@ -10,9 +10,10 @@ namespace Birdy.Services.PhotoSource.File.Models
     public class AlbumCollection : IAlbumCollection
     {
         public string FilePath { get; private set; }
-        public AlbumCollection(string path, string sourceId)
+        public string Name { get; private set; }
+        public AlbumCollection(string name, string path, string sourceId)
         {
-
+            this.Name = name;
             this.FilePath = path;
             this.Id = new HashGenerator().SHA256(path, 6);
             this.SourceId = sourceId;
@@ -22,13 +23,6 @@ namespace Birdy.Services.PhotoSource.File.Models
 
         public string Id { get; private set; }
 
-        public string Name
-        {
-            get
-            {
-                return FilePath;
-            }
-        }
         public IEnumerable<IAlbum> Albums
         {
             get
