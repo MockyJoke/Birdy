@@ -13,6 +13,7 @@ namespace Birdy.Services.PhotoSource.File
         private char pathDelimitor;
         public WorkingDirectory[] WorkingDirectories { get; private set; }
         public string Id { get; private set; }
+        private FileAccessControl fileAccessControl;
 
         public FilePhotoSource(FilePhotoSourceConfig filePhotoSourceConfig) :
         this(filePhotoSourceConfig.workingDirectories, System.IO.Path.DirectorySeparatorChar)
@@ -26,6 +27,7 @@ namespace Birdy.Services.PhotoSource.File
             this.WorkingDirectories = workingDirectories;
             this.pathDelimitor = pathDelimitor;
             this.Id = Guid.NewGuid().ToString();
+            this.fileAccessControl = new FileAccessControl();
         }
         public IEnumerable<IAlbumCollection> AlbumCollections
         {
@@ -42,7 +44,8 @@ namespace Birdy.Services.PhotoSource.File
                 throw new ArgumentException();
             }
             Photo photoFile = photo as Photo;
-            return Task.FromResult<Stream>(GetFileMemoryStream(photoFile.FullFilePath));
+            MemoryStream fileStream = fileAccessControl.QueueNewRequest(photoFile.FullFilePath,() => GetFileMemoryStream(photoFile.FullFilePath)).Result;
+            return Task.FromResult<Stream>(fileStream);
         }
 
         private MemoryStream GetFileMemoryStream(string path)

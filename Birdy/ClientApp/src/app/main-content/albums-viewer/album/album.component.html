@@ -1,23 +1,27 @@
 <div class="album-div" (click)="onClickMe()">
   <div class="preview-div">
-    <div *ngIf="previewPhotos" class="photos-div container">
+    <div *ngIf="previewSrcs" class="photos-div container">
       <div class="row">
       </div>
       <div class="row align-items-center">
-        <div class="col col-sm-6" *ngIf="previewPhotos[0]">
-          <app-photo [photo]="previewPhotos[0]"></app-photo>
+        <div class="col col-sm-6" *ngIf="previewSrcs[0]">
+          <!-- <app-photo [photo]="previewPhotos[0]"></app-photo> -->
+          <img *ngIf="previewSrcs" src="{{previewSrcs[0]}}"/>
         </div>
-        <div class="col col-sm-6" *ngIf="previewPhotos[1]">
-          <app-photo [photo]="previewPhotos[1]"></app-photo>
+        <div class="col col-sm-6" *ngIf="previewSrcs[1]">
+          <!-- <app-photo [photo]="previewPhotos[1]"></app-photo> -->
+          <img *ngIf="previewSrcs" src="{{previewSrcs[1]}}"/>
         </div>
       </div>
 
       <div class="row align-items-end">
-        <div class="col col-sm-6" *ngIf="previewPhotos[2]">
-          <app-photo [photo]="previewPhotos[2]"></app-photo>
+        <div class="col col-sm-6" *ngIf="previewSrcs[2]">
+          <!-- <app-photo [photo]="previewPhotos[2]"></app-photo> -->
+          <img *ngIf="previewSrcs" src="{{previewSrcs[2]}}"/>
         </div>
-        <div class="col col-sm-6"*ngIf="previewPhotos[3]">
-          <app-photo [photo]="previewPhotos[3]"></app-photo>
+        <div class="col col-sm-6"*ngIf="previewSrcs[3]">
+          <!-- <app-photo [photo]="previewPhotos[3]"></app-photo> -->
+          <img *ngIf="previewSrcs" src="{{previewSrcs[3]}}"/>
         </div>
       </div>
     </div>

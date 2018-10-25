@@ -1,5 +1,5 @@
 <div *ngIf="albumSet" class="container">
   <div *ngFor="let album of albumSet.albums" class="album-div">
-    <app-album [album] = "album" (clicked) = "onClicked($event)"></app-album>
+    <app-album [album] = "album" (clicked) = "onClicked($event)" #app_albums></app-album>
   </div>
 </div>
