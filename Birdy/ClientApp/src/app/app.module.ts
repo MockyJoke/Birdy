@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http'; 
+import { HttpClientModule } from '@angular/common/http';
+import { DeferLoadModule } from '@trademe/ng-defer-load';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -36,7 +37,8 @@ import { MainPhotoViewerComponent } from './main-content/gallery/main-photo-view
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    DeferLoadModule
   ],
   providers: [],
   bootstrap: [AppComponent]

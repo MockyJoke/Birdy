@@ -14,7 +14,7 @@ export class AlbumComponent implements OnInit {
 
   @Input() album: Album;
   @Output() clicked = new EventEmitter<Album>();
-
+  shouldLoad: boolean;
   previewPhotos: Photo[]; // To be removed
   previewSrcs: string[];
   constructor(private photoService: PhotoService) {
@@ -38,6 +38,15 @@ export class AlbumComponent implements OnInit {
     return album_observable.pipe(tap(src => {
       this.previewSrcs.push(src);
     }));
+  }
+
+  public fillThumbnailUrl(): Observable<Album> {
+    var album_observable = this.photoService.getAlbum(this.album.albumSetId, this.album.id)
+      .pipe(tap(album => {
+        this.previewPhotos = album.getPhotos().slice(0, 4);
+        this.previewSrcs = album.getPhotos().slice(0, 4).map(p => this.photoService.generateThumbnailPhotoUrl(p.albumSetId, p.albumId, p.id));
+      }));
+    return album_observable;
   }
 
   preloadImage(url: string): Observable<string> {

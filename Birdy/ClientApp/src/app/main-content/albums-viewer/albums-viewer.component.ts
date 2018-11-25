@@ -4,7 +4,6 @@ import { Album } from '../../models/album';
 import { PhotoManagerService } from '../../photo-manager.service';
 import { ActivatedRoute } from '@angular/router';
 import { AlbumComponent } from './album/album.component';
-import { concat } from 'rxjs';
 
 @Component({
   selector: 'app-albums-viewer',
@@ -26,22 +25,10 @@ export class AlbumsViewerComponent implements OnInit, AfterViewInit {
 
   }
   ngAfterViewInit(): void {
-    if (this.app_albums != null) {
-      this.app_albums.changes.subscribe(async app_albums => {
-        var app_albums_array = app_albums.toArray();
-        for (let i = 0; i < app_albums_array.length; i++) {
-          await app_albums_array[i].updatePreview().toPromise();
-        }
-      });
-    }
   }
 
   onClicked(selection: Album) {
     this.selectionChanged.emit(selection);
     this.photoManagerService.navigateByNode(selection);
-  }
-
-  previewAlbums() {
-    concat(this.app_albums.map(a => a.updatePreview())).subscribe(album => { });
   }
 }
