@@ -17,7 +17,7 @@ namespace Birdy.Tests.Services.ImageManipulation
             "../../../TestData/Images/IMG_9967.JPG",
             "../../../TestData/Images/IMG_9989.JPG",
         };
-        private PortableImageManipulationService imageManipulationService = new PortableImageManipulationService();
+        private SkiaImageManipulationService imageManipulationService = new SkiaImageManipulationService();
         
         [TestMethod]
         public async Task TestSingleGenerateThumbnailImageAsync()
