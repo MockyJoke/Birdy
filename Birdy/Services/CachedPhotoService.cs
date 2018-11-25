@@ -71,7 +71,6 @@ namespace Birdy.Services
                 {
                     await imageStream.CopyToAsync(cacheStream);
                     imageData = cacheStream.ToArray();
-                    await cachingService.SetAsync(photo.GetHashCode().ToString(), imageData);
                 }
             }
             return imageData;

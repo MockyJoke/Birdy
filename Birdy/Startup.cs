@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Birdy.Models;
 using Birdy.Services;
 using Birdy.Services.Caching;
+using Birdy.Services.Caching.Native;
 using Birdy.Services.Caching.Simple;
 using Birdy.Services.ImageManipulation;
 using Birdy.Services.PhotoSource;
@@ -47,8 +48,9 @@ namespace Birdy
 
             IPhotoSource photoSource = new FilePhotoSource(filePhotoSourceConfig);
 
-            ICachingService<string, byte[]> cachingService = new SimpleInMemCachingService<string, byte[]>();
-            IImageManipulationService imageManipulationService = new PortableImageManipulationService();
+            ICachingService<string, byte[]> cachingService = new NativeMemoryCachingService<string, byte[]>();
+
+            IImageManipulationService imageManipulationService = new SkiaImageManipulationService();
             services.AddSingleton<IPhotoService>(new CachedPhotoService(
                 new List<IPhotoSource> { photoSource },
                 cachingService,
