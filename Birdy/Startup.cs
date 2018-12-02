@@ -64,6 +64,7 @@ namespace Birdy
             services.AddSingleton(albumCollectionExtractor);
             services.AddSingleton(albumExtractor);
             services.AddSingleton(photoExtractor);
+            services.AddSpaStaticFiles(options => options.RootPath = "ClientApp/dist");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

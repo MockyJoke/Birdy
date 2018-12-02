@@ -127,9 +127,9 @@ namespace Birdy.Controllers
                 }
                 return File(imageStream, IMAGE_CONTENT_TYPE);
             }
-            catch
+            catch (Exception e)
             {
-                return NotFound();
+                return new JsonResult(e.ToString());
             }
         }
     }

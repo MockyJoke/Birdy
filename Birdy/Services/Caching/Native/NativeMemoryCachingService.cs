@@ -19,7 +19,7 @@ namespace Birdy.Services.Caching.Native
         {
             cache = new MemoryCache(new MemoryCacheOptions()
             {
-                SizeLimit = 1024,
+                SizeLimit = 2048,
             });
         }
 
