@@ -12,7 +12,7 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0005" />
     <PackageReference Include="SkiaSharp" Version="1.60.3" />
-
+    <PackageReference Include="mongocsharpdriver" Version="2.7.2" />
   </ItemGroup>
 
 </Project>

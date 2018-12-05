@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Birdy.Models;
 using Birdy.Services.Caching;
 using Birdy.Services.ImageManipulation;
 using Birdy.Services.PhotoSource;
+using Birdy.Util;
 
 namespace Birdy.Services
 {
@@ -60,7 +62,7 @@ namespace Birdy.Services
         private async Task<byte[]> GetCacheableFullImageAsync(IPhoto photo, IPhotoSource photoSource)
         {
             byte[] imageData;
-            if (await cachingService.HasKeyAsync(photo.GetHashCode().ToString()))
+            if (await cachingService.HasKeyAsync(GeneratePhotoCacheKey(photo, "Full")))
             {
                 imageData = await cachingService.GetAsync(photo.GetHashCode().ToString());
             }
@@ -79,7 +81,7 @@ namespace Birdy.Services
         private async Task<byte[]> GetCacheableHdImageAsync(IPhoto photo, IPhotoSource photoSource)
         {
             byte[] imageData;
-            string cacheKey = $"{photo.GetHashCode().ToString()}_Hd";
+            string cacheKey = GeneratePhotoCacheKey(photo, "Hd");
             if (await cachingService.HasKeyAsync(cacheKey))
             {
                 imageData = await cachingService.GetAsync(cacheKey);
@@ -96,7 +98,7 @@ namespace Birdy.Services
         private async Task<byte[]> GetCacheableThumbnailImageAsync(IPhoto photo, IPhotoSource photoSource)
         {
             byte[] imageData;
-            string cacheKey = $"{photo.GetHashCode().ToString()}_Thumbnail";
+            string cacheKey = GeneratePhotoCacheKey(photo, "Thumbnail");
             if (await cachingService.HasKeyAsync(cacheKey))
             {
                 imageData = await cachingService.GetAsync(cacheKey);
@@ -108,6 +110,12 @@ namespace Birdy.Services
                 await cachingService.SetAsync(cacheKey, imageData);
             }
             return imageData;
+        }
+
+        private string GeneratePhotoCacheKey(IPhoto photo, string mode)
+        {
+            string fullId = $"{photo.Parent.Parent.Id}_{photo.Parent.Id}_{photo.Id}";
+            return fullId;
         }
     }
 }

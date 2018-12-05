@@ -30,7 +30,14 @@ namespace Birdy.Services.PhotoSource.File
                 {
                     request.handle.WaitOne();
                 }
-                result = fileAction();
+                try
+                {
+                    result = fileAction();
+                }
+                catch
+                {
+                    result = default(T);
+                }
                 lock (queueLock)
                 {
                     accessList.Remove(request);

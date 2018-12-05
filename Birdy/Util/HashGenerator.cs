@@ -3,11 +3,14 @@ using System.Text;
 
 namespace Birdy.Util
 {
-    public class HashGenerator
+    public interface IHashGenerator
     {
-        public string SHA256(string text, int length = 0)
+        string GenerateHash(byte[] bytes, int length = 0);
+    }
+    public class HashGenerator : IHashGenerator
+    {
+        public string GenerateHash(byte[] bytes, int length = 0)
         {
-            byte[] bytes = Encoding.UTF8.GetBytes(text);
             SHA256Managed hashstring = new SHA256Managed();
             byte[] hash = hashstring.ComputeHash(bytes);
             string hashString = string.Empty;
@@ -20,6 +23,12 @@ namespace Birdy.Util
                 return hashString.Substring(0, length);
             }
             return hashString;
+        }
+
+        public string SHA256(string text, int length = 0)
+        {
+            byte[] bytes = Encoding.UTF8.GetBytes(text);
+            return GenerateHash(bytes, length);
         }
     }
 }

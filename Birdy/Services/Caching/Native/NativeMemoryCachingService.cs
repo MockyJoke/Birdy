@@ -9,9 +9,6 @@ namespace Birdy.Services.Caching.Native
 {
     public class NativeMemoryCachingService<IKey, IValue> : ICachingService<IKey, IValue>
     {
-        private object locker;
-        private Dictionary<IKey, IValue> cachingDict;
-        private LinkedList<IKey> priorityList;
         private MemoryCache cache;
         public int CachingLimit { get; private set; }
 
