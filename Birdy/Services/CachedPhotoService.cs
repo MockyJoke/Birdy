@@ -114,7 +114,7 @@ namespace Birdy.Services
 
         private string GeneratePhotoCacheKey(IPhoto photo, string mode)
         {
-            string fullId = $"{photo.Parent.Parent.Id}_{photo.Parent.Id}_{photo.Id}";
+            string fullId = $"{photo.Parent.Parent.Id}_{photo.Parent.Id}_{photo.Id}_{mode}";
             return fullId;
         }
     }
