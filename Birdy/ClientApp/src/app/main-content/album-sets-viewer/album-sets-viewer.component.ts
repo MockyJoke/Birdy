@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-album-sets-viewer',
   templateUrl: './album-sets-viewer.component.html',
-  styleUrls: ['./album-sets-viewer.component.css']
+  styleUrls: ['./album-sets-viewer.component.scss']
 })
 export class AlbumSetsViewerComponent implements OnInit {
 

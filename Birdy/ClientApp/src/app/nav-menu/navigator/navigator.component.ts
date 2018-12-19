@@ -5,7 +5,7 @@ import { NamedType } from '../../models/named-type';
 @Component({
   selector: 'app-navigator',
   templateUrl: './navigator.component.html',
-  styleUrls: ['./navigator.component.css']
+  styleUrls: ['./navigator.component.scss']
 })
 export class NavigatorComponent implements OnInit {
 

@@ -18,7 +18,7 @@ import { NavigatorComponent } from './nav-menu/navigator/navigator.component';
 import { GalleryComponent } from './main-content/gallery/gallery.component';
 import { PhotoListComponent } from './main-content/gallery/photo-list/photo-list.component';
 import { MainPhotoViewerComponent } from './main-content/gallery/main-photo-viewer/main-photo-viewer.component';
-import { MyMaterialModuleModule } from './my-material-module/my-material.module';
+import { MyMaterialModule } from './my-material-module/my-material.module';
 
 @NgModule({
   declarations: [
@@ -42,7 +42,7 @@ import { MyMaterialModuleModule } from './my-material-module/my-material.module'
     AppRoutingModule,
     DeferLoadModule,
     BrowserAnimationsModule,
-    MyMaterialModuleModule
+    MyMaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

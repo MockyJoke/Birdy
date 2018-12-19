@@ -8,7 +8,7 @@ import { tap, switchMap, take, map, flatMap, mergeMap, bufferCount } from 'rxjs/
 @Component({
   selector: 'app-album',
   templateUrl: './album.component.html',
-  styleUrls: ['./album.component.css']
+  styleUrls: ['./album.component.scss']
 })
 export class AlbumComponent implements OnInit {
 

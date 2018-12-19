@@ -8,7 +8,7 @@ import { Photo } from '../../models/photo';
 @Component({
   selector: 'app-photos-viewer',
   templateUrl: './photos-viewer.component.html',
-  styleUrls: ['./photos-viewer.component.css']
+  styleUrls: ['./photos-viewer.component.scss']
 })
 export class PhotosViewerComponent implements OnInit {
 

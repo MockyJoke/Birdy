@@ -4,7 +4,7 @@ import { AlbumSet } from '../../../models/album-set';
 @Component({
   selector: 'app-album-set',
   templateUrl: './album-set.component.html',
-  styleUrls: ['./album-set.component.css']
+  styleUrls: ['./album-set.component.scss']
 })
 export class AlbumSetComponent implements OnInit {
 

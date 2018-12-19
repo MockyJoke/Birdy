@@ -1,10 +1,10 @@
-import { MyMaterialModuleModule } from './my-material.module';
+import { MyMaterialModule } from './my-material.module';
 
 describe('MyMaterialModuleModule', () => {
-  let myMaterialModuleModule: MyMaterialModuleModule;
+  let myMaterialModuleModule: MyMaterialModule;
 
   beforeEach(() => {
-    myMaterialModuleModule = new MyMaterialModuleModule();
+    myMaterialModuleModule = new MyMaterialModule();
   });
 
   it('should create an instance', () => {

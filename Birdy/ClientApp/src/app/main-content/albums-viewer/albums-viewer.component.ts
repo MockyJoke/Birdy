@@ -8,7 +8,7 @@ import { AlbumComponent } from './album/album.component';
 @Component({
   selector: 'app-albums-viewer',
   templateUrl: './albums-viewer.component.html',
-  styleUrls: ['./albums-viewer.component.css']
+  styleUrls: ['./albums-viewer.component.scss']
 })
 export class AlbumsViewerComponent implements OnInit, AfterViewInit {
   @Input() albumSet: AlbumSet;
