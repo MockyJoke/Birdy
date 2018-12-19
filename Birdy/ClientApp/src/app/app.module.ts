@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { DeferLoadModule } from '@trademe/ng-defer-load';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -17,6 +18,7 @@ import { NavigatorComponent } from './nav-menu/navigator/navigator.component';
 import { GalleryComponent } from './main-content/gallery/gallery.component';
 import { PhotoListComponent } from './main-content/gallery/photo-list/photo-list.component';
 import { MainPhotoViewerComponent } from './main-content/gallery/main-photo-viewer/main-photo-viewer.component';
+import { MyMaterialModuleModule } from './my-material-module/my-material.module';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { MainPhotoViewerComponent } from './main-content/gallery/main-photo-view
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    DeferLoadModule
+    DeferLoadModule,
+    BrowserAnimationsModule,
+    MyMaterialModuleModule
   ],
   providers: [],
   bootstrap: [AppComponent]
