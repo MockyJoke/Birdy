@@ -2,7 +2,6 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { PhotoService } from '../../photo.service';
 import { AlbumSet } from '../../models/album-set';
 import { PhotoManagerService } from '../../photo-manager.service';
-import { filter } from 'rxjs/operators';
 import { Root } from '../../models/root';
 import { ActivatedRoute } from '@angular/router';
 

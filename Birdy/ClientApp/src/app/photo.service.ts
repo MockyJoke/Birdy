@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AlbumSet } from './models/album-set';
 import { Observable, of, from } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, tap, switchMap } from 'rxjs/operators';
 import { Album } from './models/album';
 import { Photo } from './models/photo';
 import { Root } from './models/root';
@@ -62,4 +62,29 @@ export class PhotoService {
   generateHdPhotoUrl(albumSetId: string, albumId: string, photoId: string): string {
     return `${this.endpointUrl}api/photos/${albumSetId}/${albumId}/${photoId}/hd`;
   }
+
+  getImage(albumSetId: string, albumId: string, photoId: string, imageFetchMode: ImageFetchMode): Observable<string> {
+    return this.http.get(`${this.endpointUrl}api/photos/${albumSetId}/${albumId}/${photoId}/${imageFetchMode.toString()}`, { responseType: 'blob' }).pipe(switchMap(blobImage => {
+      return this.blobImageToBase64Image(blobImage)
+    }));
+  }
+
+  private blobImageToBase64Image(blobImage: Blob): Observable<string> {
+    return new Observable<string>(observer => {
+      var reader = new FileReader();
+
+      reader.addEventListener("load", function () {
+        observer.next(reader.result.toString())
+      }, false);
+
+      reader.readAsDataURL(blobImage);
+    })
+
+  }
+}
+
+export enum ImageFetchMode {
+  HD = "hd",
+  MINI = "mini",
+  FULL = "full"
 }
