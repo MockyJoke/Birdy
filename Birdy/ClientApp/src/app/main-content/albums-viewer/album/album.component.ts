@@ -43,7 +43,7 @@ export class AlbumComponent implements OnInit, OnDestroy {
     return album_observable;
   }
 
-  public loadPreviewImages() {
+  public loadPreviewImagesWithImageAjax() {
     var album_observable = this.photoService.getAlbum(this.album.albumSetId, this.album.id)
       .pipe(switchMap(album => {
         this.previewPhotos = album.getPhotos().slice(0, 4);
@@ -53,5 +53,11 @@ export class AlbumComponent implements OnInit, OnDestroy {
     return album_observable.pipe(tap(src => {
       this.previewSrcs.push(src);
     }));
+  }
+  public loadPreviewImagesWithAlbumAjax() {
+    this.photoService.getAlbum(this.album.albumSetId, this.album.id, true).pipe(takeUntil(this.shouldDestroy))
+      .subscribe(album => {
+        this.previewSrcs = album.getPrewviewImages().map(base64Image => "data:image/jpeg;base64," + base64Image);
+      });
   }
 }

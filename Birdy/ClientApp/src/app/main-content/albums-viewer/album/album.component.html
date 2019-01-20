@@ -1,4 +1,4 @@
-<div class="album-div" (click)="onClickMe()" (deferLoad)="shouldLoad = true;loadPreviewImages().subscribe();">
+<div class="album-div" (click)="onClickMe()" (deferLoad)="shouldLoad = true;loadPreviewImagesWithAlbumAjax()">
   <div class="preview-div" *ngIf="shouldLoad">
     <div *ngIf="previewSrcs" class="photos-div container">
       <div class="row">

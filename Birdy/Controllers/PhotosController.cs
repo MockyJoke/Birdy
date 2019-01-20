@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Birdy.Models;
 using Birdy.Services;
+using Birdy.Util.Extension;
 using Birdy.Util.Extraction;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,6 +16,7 @@ namespace Birdy.Controllers
     public class PhotosController : ControllerBase
     {
         private const string IMAGE_CONTENT_TYPE = "image/jpeg";
+        private const int MAX_ALBUM_PREVIEW_SAMPLES = 4;
         private IPhotoService imageService;
         private AlbumCollectionExtractor albumCollectionExtractor;
         private AlbumExtractor albumExtractor;
@@ -65,14 +67,22 @@ namespace Birdy.Controllers
         }
 
         [HttpGet("{albumCollectionId}/{AlbumId}")]
-        public ActionResult Get(string albumCollectionId, string albumId)
+        public async Task<ActionResult> Get(string albumCollectionId, string albumId, bool preview)
         {
             IAlbum album;
             IAlbumCollection albumCollection;
+
+            List<string> previewImages = null;
             try
             {
                 albumCollection = albumCollectionExtractor.Single(imageService.AlbumCollections, albumCollectionId);
                 album = albumExtractor.Single(imageService.AlbumCollections, albumCollectionId, albumId);
+                if (preview)
+                {
+                    IEnumerable<IPhoto> photos = album.Photos.Take(MAX_ALBUM_PREVIEW_SAMPLES);
+                    Stream[] previewPhotoStreams = await Task.WhenAll(photos.Select(p => imageService.GetImageStreamAsync(p, ImageFetchMode.MINI)));
+                    previewImages = previewPhotoStreams.Select(s => s.ConvertToBase64()).ToList();
+                }
             }
             catch
             {
@@ -85,7 +95,8 @@ namespace Birdy.Controllers
                 albumCollectionName = albumCollection.Name,
                 id = album.Id,
                 name = album.Name,
-                photos = album.Photos.Select(p => new { id = p.Id, name = p.Name })
+                photos = album.Photos.Select(p => new { id = p.Id, name = p.Name }),
+                previewImages = previewImages
             });
         }
 

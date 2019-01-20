@@ -34,8 +34,8 @@ export class PhotoService {
     }));
   }
 
-  getAlbum(albumSetId: string, albumId: string): Observable<Album> {
-    return this.http.get<any>(`${this.endpointUrl}api/photos/${albumSetId}/${albumId}`).pipe(map(albumResult => {
+  getAlbum(albumSetId: string, albumId: string, preview?: boolean): Observable<Album> {
+    return this.http.get<any>(`${this.endpointUrl}api/photos/${albumSetId}/${albumId}?preview=${preview ? "true" : "false"}`).pipe(map(albumResult => {
       var album = new Album(albumResult.albumCollectionId, albumResult.albumCollectionName, albumResult.id, albumResult.name);
       album.setPhotos(albumResult['photos'].map(photo => new Photo(
         albumResult.albumCollectionId,
@@ -45,6 +45,9 @@ export class PhotoService {
         photo.id,
         photo.name
       )));
+      if (preview) {
+        album.setPrewviewImages(albumResult.previewImages);
+      }
       return album;
     }));
   }
