@@ -103,7 +103,8 @@ namespace Birdy
         private ICachingService<string, byte[]> ProvideCachingService(IHashGenerator hashGenerator)
         {
             // ICachingService<string, byte[]> cachingService = new NativeMemoryCachingService<string, byte[]>();
-            ICachingService<string, byte[]> cachingService = new MongoDbCachingService<string, byte[]>(new MongoClient("mongodb://localhost:27017"), "Birdy", "ThumbnailData", hashGenerator);
+            string connectionString = Configuration["MongoDbConnectionString"];
+            ICachingService<string, byte[]> cachingService = new MongoDbCachingService<string, byte[]>(new MongoClient(connectionString), "Birdy", "ThumbnailData", hashGenerator);
             return cachingService;
         }
 
