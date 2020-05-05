@@ -19,6 +19,7 @@ namespace Birdy
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+	        .UseUrls("http://localhost:80")
                 .UseStartup<Startup>();
     }
 }
