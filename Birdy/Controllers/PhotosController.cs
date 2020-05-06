@@ -8,6 +8,7 @@ using Birdy.Services;
 using Birdy.Util.Extension;
 using Birdy.Util.Extraction;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace Birdy.Controllers
 {
@@ -21,18 +22,21 @@ namespace Birdy.Controllers
         private AlbumCollectionExtractor albumCollectionExtractor;
         private AlbumExtractor albumExtractor;
         private PhotoExtractor photoExtractor;
+        public static ILogger<PhotosController> SharedLogger;
 
         public PhotosController(
             IPhotoService imageService,
             AlbumCollectionExtractor albumCollectionExtractor,
             AlbumExtractor albumExtractor,
-            PhotoExtractor photoExtractor
+            PhotoExtractor photoExtractor,
+            ILogger<PhotosController> logger 
             )
         {
             this.imageService = imageService;
             this.albumCollectionExtractor = albumCollectionExtractor;
             this.albumExtractor = albumExtractor;
             this.photoExtractor = photoExtractor;
+            SharedLogger = logger;
         }
 
         [HttpGet]
@@ -52,10 +56,12 @@ namespace Birdy.Controllers
             IAlbumCollection albumCollection;
             try
             {
+                SharedLogger.LogWarning("Error occured during AlbumCollection extraction.");
                 albumCollection = albumCollectionExtractor.Single(imageService.AlbumCollections, albumCollectionId);
             }
-            catch
+            catch(Exception ex)
             {
+                SharedLogger.LogError(ex,"Error occured during AlbumCollection extraction.");
                 return NotFound();
             }
             return new JsonResult(new
@@ -84,8 +90,9 @@ namespace Birdy.Controllers
                     previewImages = previewPhotoStreams.Select(s => s.ConvertToBase64()).ToList();
                 }
             }
-            catch
+            catch(Exception ex)
             {
+                SharedLogger.LogError(ex,"Error occured When getting Album");
                 return NotFound();
             }
 
@@ -138,9 +145,10 @@ namespace Birdy.Controllers
                 }
                 return File(imageStream, IMAGE_CONTENT_TYPE);
             }
-            catch (Exception e)
+            catch(Exception ex)
             {
-                return new JsonResult(e.ToString());
+                SharedLogger.LogError(ex,"Error occured when getting Photo");
+                return new JsonResult(ex.ToString());
             }
         }
     }

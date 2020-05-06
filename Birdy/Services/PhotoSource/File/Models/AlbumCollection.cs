@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Birdy.Controllers;
 using Birdy.Models;
 using Birdy.Util;
+using Microsoft.Extensions.Logging;
 
 namespace Birdy.Services.PhotoSource.File.Models
 {
@@ -27,6 +29,8 @@ namespace Birdy.Services.PhotoSource.File.Models
         {
             get
             {
+                ILogger<PhotosController> logger = PhotosController.SharedLogger;
+                logger.LogWarning("Enumerate Directories for: "+ FilePath);
                 return Directory.EnumerateDirectories(FilePath).Select(d => new Album(this, Path.GetFileName(d)));
             }
         }

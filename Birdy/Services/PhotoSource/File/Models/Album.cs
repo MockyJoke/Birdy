@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Birdy.Controllers;
 using Birdy.Models;
+using Microsoft.Extensions.Logging;
 
 namespace Birdy.Services.PhotoSource.File.Models
 {
@@ -53,7 +55,9 @@ namespace Birdy.Services.PhotoSource.File.Models
         {
             get
             {
-                return Directory.EnumerateFiles(FullFilePath, "*.jpg").Select(f => new Photo(this, Path.GetFileName(f)));
+                ILogger<PhotosController> logger = PhotosController.SharedLogger;
+                logger.LogWarning("Enumerating files for: "+FullFilePath);
+                return Directory.EnumerateFiles(FullFilePath, "*.JPG").Select(f => new Photo(this, Path.GetFileName(f)));
             }
         }
     }
