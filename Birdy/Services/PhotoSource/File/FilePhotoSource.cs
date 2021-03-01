@@ -51,7 +51,7 @@ namespace Birdy.Services.PhotoSource.File
         private MemoryStream GetFileMemoryStream(string path)
         {
             MemoryStream ms = new MemoryStream();
-            using (FileStream fs = new FileStream(path, FileMode.Open))
+            using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
                 fs.CopyTo(ms);
             }
