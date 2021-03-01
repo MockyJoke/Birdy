@@ -41,7 +41,7 @@ namespace Birdy.Services.ImageManipulation
                         height = size;
                     }
 
-                    using (var resized = original.Resize(new SKImageInfo(width, height), SKBitmapResizeMethod.Lanczos3))
+                    using (var resized = original.Resize(new SKImageInfo(width, height), SKFilterQuality.High))
                     {
                         if (resized == null) return null;
                         using (var image = SKImage.FromBitmap(resized))
