@@ -23,6 +23,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Hosting;
 using MongoDB.Driver;
 
 namespace Birdy
@@ -39,7 +40,7 @@ namespace Birdy
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddControllersWithViews();
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
@@ -63,7 +64,7 @@ namespace Birdy
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         // Setup Angular SPA https://dzone.com/articles/create-an-application-with-angular-6-and-net-core
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -75,7 +76,6 @@ namespace Birdy
             }
 
             app.UseHttpsRedirection();
-            app.UseMvc();
 
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
