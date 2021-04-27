@@ -9,7 +9,7 @@ import { NamedType } from '../../models/named-type';
 })
 export class NavigatorComponent implements OnInit {
 
-  private selectedNode: NamedType;
+  selectedNode: NamedType;
   constructor(private photoManagerService: PhotoManagerService) {
     this.photoManagerService.selectionChanged.subscribe(selection => {
       this.selectedNode = selection;
